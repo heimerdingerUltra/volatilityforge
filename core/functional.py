@@ -1,4 +1,4 @@
-from typing import Callable, TypeVar, Iterable, Iterator, Optional, ParamSpec
+from typing import Callable, TypeVar, Iterable, Iterator, Optional, ParamSpec, Generic
 from functools import wraps, reduce
 import operator
 import torch
@@ -126,7 +126,7 @@ def iterate(fn: Callable[[A], A], initial: A) -> Iterator[A]:
         value = fn(value)
 
 
-class Maybe:
+class Maybe(Generic[A]):
     
     def __init__(self, value: Optional[A]):
         self._value = value
@@ -155,7 +155,7 @@ class Maybe:
         return self._value is not None
 
 
-class Either:
+class Either(Generic[A]):
     
     def __init__(self, value: A | Exception, is_right: bool = True):
         self._value = value

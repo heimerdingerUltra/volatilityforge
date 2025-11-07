@@ -206,16 +206,35 @@ class xLSTM(nn.Module):
         )
         
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass through xLSTM model.
+        
+        Args:
+            x: Input tensor of shape (batch, n_features)
+            
+        Returns:
+            Output predictions of shape (batch,)
+        """
         batch_size = x.shape[0]
         device = x.device
         
+        # Embed input
         x = self.embed(x)
         
+        # Initialize states for all blocks
         states = [block.init_state(batch_size, device) for block in self.blocks]
         
+        # Process through all blocks
         for i, block in enumerate(self.blocks):
             x, states[i] = block(x, states[i])
         
+        # Final normalization
         x = self.norm(x)
         
+        # Head for prediction
         return self.head(x).squeeze(-1)
+
+
+
+
+

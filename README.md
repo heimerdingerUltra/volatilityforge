@@ -395,7 +395,7 @@ Educational resource demonstrating best practices and modern techniques.
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - [GENIUS_DOCUMENTATION.md](./GENIUS_DOCUMENTATION.md) - Deep technical dive
 - [ULTIMATE_SUMMARY.md](./ULTIMATE_SUMMARY.md) - Complete features overview
@@ -403,7 +403,7 @@ Educational resource demonstrating best practices and modern techniques.
 
 ---
 
-## 🚀 Future Vision
+## Future Vision
 
 - Transformer-XL integration
 - Perceiver IO architecture
@@ -413,7 +413,7 @@ Educational resource demonstrating best practices and modern techniques.
 
 ---
 
-## 📜 License
+##  License
 
 MIT License - Genius should be shared.
 

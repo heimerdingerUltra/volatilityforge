@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from einops import rearrange
 import math
-
+from typing import Optional
 
 class SelectiveSSM(nn.Module):
     
