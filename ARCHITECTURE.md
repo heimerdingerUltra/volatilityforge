@@ -406,5 +406,3 @@ torch.backends.cudnn.benchmark = True
 **Note**: Non-deterministic, optimize kernel selection
 
 ---
-
-**Architecture designed for**: Research excellence • Production readiness • Code elegance
