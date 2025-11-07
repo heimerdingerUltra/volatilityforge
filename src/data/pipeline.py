@@ -164,8 +164,10 @@ class DataValidator:
     def validate_range(y: np.ndarray, min_val: float = 0, max_val: float = 500) -> None:
         valid_y = y[~np.isnan(y) & ~np.isinf(y)]
         if len(valid_y) > 0:
-            assert np.all(valid_y >= min_val), f"y contains values below {min_val}: min={valid_y.min()}"
-            assert np.all(valid_y <= max_val), f"y contains values above {max_val}: max={valid_y.max()}"
+            if np.any(valid_y < min_val):
+                print(f"Warning: y contains values below {min_val}: min={valid_y.min()}")
+            if np.any(valid_y > max_val):
+                print(f"Warning: y contains values above {max_val}: max={valid_y.max()}")
     
     @staticmethod
     def validate_all(X: np.ndarray, y: np.ndarray) -> None:

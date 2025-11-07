@@ -39,7 +39,7 @@ class AttentionEnsemble(nn.Module):
         attention = torch.matmul(q, k.transpose(-2, -1)) / (k.shape[-1] ** 0.5)
         attention = F.softmax(attention, dim=-1)
         
-        weighted = torch.matmul(attention, v.unsqueeze(-1)).squeeze(-1)
+        weighted = torch.matmul(attention, v)
         
         return self.output(weighted).squeeze(-1)
 

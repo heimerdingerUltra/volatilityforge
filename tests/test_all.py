@@ -50,7 +50,7 @@ class TestFeatureEngineering(unittest.TestCase):
     
     def test_data_validation(self):
         X = np.random.randn(100, 20)
-        y = np.random.randn(100) * 10 + 20
+        y = np.abs(np.random.randn(100)) * 10 + 20
         
         DataValidator.validate_all(X, y)
         

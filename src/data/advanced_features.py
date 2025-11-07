@@ -144,6 +144,8 @@ class QuantitativeFeatureEngine:
     
     @staticmethod
     def interaction_features(features: pd.DataFrame) -> pd.DataFrame:
+        features = features.copy()
+        
         if 'moneyness' in features.columns and 'tte' in features.columns:
             if 'moneyness_tte' not in features.columns:
                 features['moneyness_tte'] = features['moneyness'] * features['tte']
@@ -274,3 +276,4 @@ class AdvancedFeatures(FeatureStore):
         features = self.engine.advanced_features(df, features)
         
         return features
+

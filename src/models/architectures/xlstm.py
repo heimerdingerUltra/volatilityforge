@@ -124,12 +124,40 @@ class xLSTMBlock(nn.Module):
             return (h, c, n, m)
     
     def forward(self, x: torch.Tensor, state: tuple) -> tuple:
-        h, state = self.lstm(x, state)
+        C_prev, n_prev, m_prev = state
         
-        h = self.norm(h)
-        h = h + self.ffn(h)
+        q = self.W_q(x)
+        k = self.W_k(x)
+        v = self.W_v(x)
         
-        return h, state
+        i = F.softplus(self.W_i(x))
+        f = torch.sigmoid(self.W_f(x))
+        o = torch.sigmoid(self.W_o(x))
+        
+        k_expanded = k.unsqueeze(-1)
+        v_expanded = v.unsqueeze(-2)
+        
+        f_expanded = f.unsqueeze(-1).unsqueeze(-1)
+        i_expanded = i.unsqueeze(-1).unsqueeze(-1)
+        
+        kv_outer = k_expanded @ v_expanded
+        
+        f_exp = f.unsqueeze(-1)
+        i_exp = i.unsqueeze(-1)
+        
+        C = f_exp * C_prev + i_exp * kv_outer
+        
+        n = f * n_prev + i * k
+        m = torch.max(f * m_prev, i)
+        
+        h_tilde = (C @ q.unsqueeze(-1)).squeeze(-1) / torch.max(
+            (n.unsqueeze(-1) * q.unsqueeze(-2)).sum(-1), 
+            torch.ones_like(q)
+        )
+        
+        h = o * self.group_norm(h_tilde)
+        
+        return h, (C, n, m)
 
 
 class xLSTM(nn.Module):
