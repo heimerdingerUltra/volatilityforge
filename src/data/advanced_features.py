@@ -145,7 +145,8 @@ class QuantitativeFeatureEngine:
     @staticmethod
     def interaction_features(features: pd.DataFrame) -> pd.DataFrame:
         if 'moneyness' in features.columns and 'tte' in features.columns:
-            features['moneyness_tte'] = features['moneyness'] * features['tte']
+            if 'moneyness_tte' not in features.columns:
+                features['moneyness_tte'] = features['moneyness'] * features['tte']
             features['moneyness_sqrt_tte'] = features['moneyness'] * features['sqrt_tte']
             features['log_moneyness_log_tte'] = features['log_moneyness'] * features['log_tte']
             features['atm_distance_tte'] = features['atm_distance'] * features['tte']
@@ -253,6 +254,9 @@ class AdvancedFeatures(FeatureStore):
     
     def _extract_features(self, df: pd.DataFrame) -> pd.DataFrame:
         features = pd.DataFrame(index=df.index)
+
+        if features.index.duplicated().any():
+            features = features.reset_index(drop=True)
         
         micro = self.engine.microstructure_features(df)
         features = pd.concat([features, micro], axis=1)

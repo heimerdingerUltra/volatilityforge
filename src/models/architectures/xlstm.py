@@ -72,7 +72,10 @@ class mLSTMCell(nn.Module):
         k_expanded = k.unsqueeze(-1)
         v_expanded = v.unsqueeze(-2)
         
-        C = f.unsqueeze(-1).unsqueeze(-1) * C_prev + i.unsqueeze(-1).unsqueeze(-1) * (k_expanded @ v_expanded)
+        f_expanded = f.unsqueeze(-1).unsqueeze(-1)
+        i_expanded = i.unsqueeze(-1).unsqueeze(-1)
+        kv_outer = k_expanded @ v_expanded
+        C = f_expanded * C_prev + i_expanded * kv_outer
         
         n = f * n_prev + i * k
         m = torch.max(f * m_prev, i)

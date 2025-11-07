@@ -20,7 +20,13 @@ class RotaryPositionalEmbedding(nn.Module):
 
 
 def apply_rotary_pos_emb(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
-    x1, x2 = x[..., ::2], x[..., 1::2]
+
+    d = x.shape[-1]
+    x1, x2 = x[..., :d//2], x[..., d//2:]
+    # Ensure cos and sin match dimensions
+    if cos.shape[-1] != d//2:
+        cos = cos[..., :d//2]
+        sin = sin[..., :d//2]
     return torch.cat([x1 * cos - x2 * sin, x1 * sin + x2 * cos], dim=-1)
 
 
