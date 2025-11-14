@@ -1,0 +1,53 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+
+# Compiled C extensions
+*.so
+
+# Virtual environments
+venv/
+.env/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Packaging
+*.egg-info/
+.eggs/
+*.egg
+
+# Logs
+*.log
+
+# Byte-compiled / optimized / DLL files
+*.dll
+*.a
+*.out
+*.o
+
+# Test / coverage
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+
+# IDE configs
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+.DS_Store
