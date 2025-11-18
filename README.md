@@ -7,8 +7,6 @@
 
 > *"Simplicity is the ultimate sophistication." - Leonardo da Vinci*
 
-**47 pristine modules. 11,314 lines of engineering poetry. Zero compromises.**
-
 ---
 
 ## Research Breakthroughs
